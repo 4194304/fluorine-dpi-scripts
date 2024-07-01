@@ -1,6 +1,8 @@
 # Fluorine DPI Scripts
 Here are a few scripts I have made for the Fluorine desktop environment (and other environments too), that help you set up a hiDPI friendly experience on X11.
 
+SetDPI helps you scale X11 and GTK, while OpenScale lets you scale any openbox theme, both with complete automation and ease of use.
+
 ## SetDPI
 
 ### Preparation
