@@ -1,50 +1,50 @@
 # Fluorine DPI Scripts
-The main script, setdpi.sh, can be used in any environment.
+Here are a few scripts I have made for the Fluorine desktop environment (and other environments too), that help you set up a hiDPI friendly experience on X11.
 
-When run, it will output a file named "dpi.sh" in the ~/.fluorine/ directory.
+## SetDPI
 
-If used in a Fluorine environment, it should start and apply when it starts. However, if you're in an environment that is NOT based off of Fluorine, follow the instructions below.
+### Preparation
+First, install the `xorg-xrdb` package.
 
-## Setup
+From there, you can download it in whatever way best suits you.
 
-### Section 1. Packages and installation
-This tool requires that you have the following packages:
-`bash` (declare, echo, rm, chmod)
-`xorg-xrdb` (xrdb-override)
+After that, find the script, and allow execution permission by running `chmod +x setdpi.sh`.
 
-Once the required packages are installed, the script can be downloaded from the repository using a variety of methods, including `git`.
+### Execution
+Once the script is ready, open a terminal.
 
-### Section 2. Finding the folder
-If using git, simply change directories into the folder that should be named `fluorine-dpi-scripts`.
+Here are the applicable arguments used for this script:
 
-Now the script is downloaded and ready to use.
+__Argument 1: Xresources__
+This will be the DPI percentage used in the Xresources file to scale X11, Openbox, and other window managers.
 
-Open a terminal and `cd` into the directory that contains the script.
+__Argument 2: GTK__
+Using xrdb-override, you can set a scale factor for GTK. As was the last, this is controlled by a percentage value as well.
 
-### Section 3. Running it
-Once you have successfully found the script using the terminal, before executing, be aware of the two vital arguments.
+Finally, execute the script by running `./setdpi.sh`. If Fluorine is already installed, you should see an mkdir warning, which is fine to ignore. If performing this without the Fluorine desktop environment, no output should be seen.
 
-DPI scale factor is passed as a percentage.
+After execution, if you restart any apps open before execution of the script, the scale will apply.
 
-__Argument 1: Xresources scale__
-This is the scale factor used in Xresources, which will give programs the instruction to scale.
+### Post-execution
+After executing the script, it leaves a script named `dpi.sh` to set the GTK scale in the `.fluorine` directory which can be found in your home folder. This script can be run with your window manager's native autostart functionality, XDG autostart, or with the xinitrc file.
 
-__Argument 2. GTK scale__
-This is the scale factor used for all GTK applications.
+## OpenScale
+OpenScale is a utility to scale Openbox themes.
 
-__What about Qt?__
-Qt by default copies the DPI scale from other sources, so Qt can be left out.
+OpenScale requires the `imagemagick` package to even work, so make sure that it's installed before use.
 
-__Executing it__
-To execute it, first run `chmod +x setdpi.sh`. This will allow execute permission which will in turn make the script work.
+Make sure that the file has execution permission, and if not, run `chmod +x openscale.sh` to grant permission.
 
-Finally, to execute it, run `./setdpi.sh` with the two arguments mentioned above. It should return no output (if the `.fluorine` folder is in your home directory beforehand it will return an mkdir warning), and in your home directory you should find a folder named `.fluorine`.
+### Usage
+After ImageMagick is installed successfully and OpenScale is downloaded, you can get to scaling themes.
 
-### Section 4. Post-setup
-After executing the script, in the `.fluorine` folder, there should be a script named `dpi.sh`. The script can be moved anywhere or named anything, however, regenerating it will return another .
+The first argument is responsible for the percentage scale you want. IMPORTANT NOTE: __OMIT__ the percentage symbol otherwise the script will return to you that your input was invalid.
 
-In environments such as Openbox, there should be an autostart file. Otherwise, you can add it to XDG autostart or your .xinitrc file which can be found in your home directory (if using startx). Use the following template below if that is done:
-`exec ~/.fluorine/dpi.sh`
+The second argument is the directory you want. Simply find the path of the Openbox theme you want to scale (NOT IN ARCHIVED FORM OR INSIDE OF THE openbox-3 FOLDER), and run the script with `./openscale.sh`.
 
-## Finishing up
-Once the installation, setup, and execution is done, restart the X server to verify that everything is working correctly. If not, reread the direction and try again.
+During the resizing process, you may see quite a few "file not found" errors. It's perfectly normal, as the script is made to convert all button images for all themes.
+
+### Post-execution
+After the conversion, use `obconf` to find the theme folder, and create a theme archive. Then simply install the Openbox theme archive as would be any other theme and enjoy.
+
+If the result looks odd and distorted (which might), use [this tool](https://xbm.jazzychad.net) to edit the image to your liking.
